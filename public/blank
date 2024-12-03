@@ -1,0 +1,95 @@
+Untuk memenuhi kebutuhan Anda, langkah-langkah berikut dapat membantu mengimplementasikan fitur yang mencegah pemilihan employee yang sedang bekerja dalam tugas dengan status "in progress":
+
+### Langkah 1: **Modifikasi Database**
+Tambahkan kolom `status` pada tabel employee untuk mencatat status mereka. Contoh:
+
+```sql
+ALTER TABLE employees ADD COLUMN status ENUM('available', 'in_progress') DEFAULT 'available';
+```
+
+Pastikan juga bahwa tabel orders memiliki relasi ke tabel employees, misalnya:
+
+```sql
+ALTER TABLE orders ADD COLUMN employee_id INT;
+```
+
+### Langkah 2: **Query untuk Menyaring Employee**
+Saat Anda ingin memilih employee yang tersedia untuk tugas, gunakan query yang hanya mengambil employee dengan status `available`. Contoh:
+
+```sql
+SELECT * FROM employees WHERE status = 'available';
+```
+
+### Langkah 3: **Tampilan di Form Orders**
+Di form pemesanan (orders), tampilkan hanya employee yang statusnya `available`. Jika Anda menggunakan CodeIgniter, berikut contoh di controller:
+
+#### Controller (Orders)
+```php
+public function create()
+{
+    $employeeModel = new \App\Models\EmployeeModel();
+    $availableEmployees = $employeeModel->where('status', 'available')->findAll();
+
+    return view('orders/create', ['employees' => $availableEmployees]);
+}
+```
+
+#### View (orders/create.php)
+```php
+<select name="employee_id" id="employee_id" class="form-control">
+    <option value="">-- Pilih Employee --</option>
+    <?php foreach ($employees as $employee): ?>
+        <option value="<?= $employee['id'] ?>"><?= $employee['name'] ?></option>
+    <?php endforeach; ?>
+</select>
+```
+
+### Langkah 4: **Update Status Employee**
+Setelah tugas dipesan (order dibuat), perbarui status employee menjadi `in_progress`. Contoh di controller:
+
+#### Controller (Orders)
+```php
+public function store()
+{
+    $orderModel = new \App\Models\OrderModel();
+    $employeeModel = new \App\Models\EmployeeModel();
+
+    $data = [
+        'customer_id' => $this->request->getPost('customer_id'),
+        'employee_id' => $this->request->getPost('employee_id'),
+        'status' => 'in_progress', // Status order
+    ];
+    $orderModel->save($data);
+
+    // Update status employee
+    $employeeModel->update($data['employee_id'], ['status' => 'in_progress']);
+
+    return redirect()->to('/orders');
+}
+```
+
+### Langkah 5: **Mengatur Status ke Available**
+Saat tugas selesai, ubah status employee kembali menjadi `available`. Misalnya:
+
+```php
+public function complete($id)
+{
+    $orderModel = new \App\Models\OrderModel();
+    $employeeModel = new \App\Models\EmployeeModel();
+
+    // Ambil order berdasarkan ID
+    $order = $orderModel->find($id);
+
+    // Update status order ke selesai
+    $orderModel->update($id, ['status' => 'completed']);
+
+    // Update status employee ke available
+    $employeeModel->update($order['employee_id'], ['status' => 'available']);
+
+    return redirect()->to('/orders');
+}
+```
+
+Dengan cara ini:
+- Employee yang sedang bekerja (`in_progress`) tidak akan muncul dalam daftar pemilihan.
+- Ketika tugas selesai, status employee akan diperbarui menjadi `available` sehingga bisa dipilih kembali.

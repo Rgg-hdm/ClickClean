@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Dashboard</title>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-container">
+            <h1 class="logo">Dashboard</h1>
+            <div class="profile">
+                <div class="profile-icon" onclick="toggleDropdown()">
+                    <img src="https://via.placeholder.com/40" alt="Profil" class="profile-img">
+                </div>
+                <div class="dropdown" id="profileDropdown">
+                    <p class="dropdown-item">Nama Pengguna</p>
+                    <p class="dropdown-item">Email: pengguna@example.com</p>
+                    <hr>
+                    <p class="dropdown-item">Keluar</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("profileDropdown").classList.toggle("show");
+        }
+
+        // Menutup dropdown jika klik di luar
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-icon')) {
+                const dropdowns = document.getElementsByClassName("dropdown");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

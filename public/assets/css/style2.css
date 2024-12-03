@@ -1,0 +1,181 @@
+:root {
+    --primary-color: #4CAF50; /* Hijau bersih */
+    --secondary-color: #E8F5E9; /* Hijau muda */
+    --card-background: white; /* Putih bersih */
+    --card-border: #B2DFDB; /* Warna border yang lembut */
+    --text-color: #333; /* Warna teks yang gelap untuk kontras */
+    --hover-background: #388E3C; /* Hijau gelap untuk hover */
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--secondary-color);
+    margin: 0;
+    padding: 20px; /* Menambahkan padding pada body untuk ruang */
+}
+
+.sidebar {
+    background-color: var(--primary-color);
+    color: white;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px; /* Lebar sidebar */
+    transition: width 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0 10px 10px 0; /* Membuat sudut yang halus */
+}
+
+.sidebar h4 {
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    text-align: center; /* Memusatkan judul */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 15px; /* Spasi antar item */
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px; /* Padding horizontal */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar a:hover {
+    background-color: var(--hover-background);
+    transform: translateX(5px); /* Efek hover */
+}
+
+.main-content {
+    margin-left: 240px; /* Mengatur margin untuk sidebar */
+    padding: 20px;
+    border-radius: 10px; /* Sudut halus pada konten utama */
+    background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%); /* Latar belakang gradasi */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Bayangan untuk kedalaman */
+}
+
+.row {
+    margin: 0; /* Mengatur margin untuk row */
+}
+
+.card {
+    background-color: var(--card-background);
+    padding: 20px;
+    border: 1px solid var(--card-border);
+    border-radius: 10px; /* Sudut halus pada kartu */
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bayangan untuk kedalaman */
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Efek lift saat hover */
+}
+
+.card h4 {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.25rem; /* Ukuran font yang sedikit lebih besar */
+    color: var(--primary-color); /* Warna judul */
+}
+
+.card p {
+    font-size: 1rem; /* Ukuran font untuk teks */
+    color: var(--text-color); /* Warna teks */
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: rgba(76, 175, 80, 0.1); /* Latar belakang hijau muda */
+    border-radius: 10px; /* Sudut halus */
+    z-index: -1; /* Menempatkan di belakang konten */
+}
+
+.icon {
+    margin-right: 10px; /* Spasi antara ikon dan teks */
+    font-size: 1.2rem; /* Ukuran ikon */
+}
+
+.footer {
+    text-align: center;
+    margin-top: 20px;
+ padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 10px; /* Sudut halus pada footer */
+    .header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .header-container {
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    
+    .profile {
+        position: relative; /* Untuk dropdown */
+    }
+    
+    .profile-icon {
+        cursor: pointer;
+    }
+    
+    .profile-img {
+        border-radius: 50%; /* Membuat gambar profil bulat */
+    }
+    
+    .dropdown {
+        display: none; /* Tersembunyi secara default */
+        position: absolute;
+        right: 0;
+        background-color: white;
+        min-width: 200px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        border-radius: 5px;
+    }
+    
+    .dropdown-item {
+        padding: 10px;
+        color: var(--text-color);
+        text-align: left;
+        cursor: pointer;
+    }
+    
+    .dropdown-item:hover {
+        background-color: #f1f1f1; /* Efek hover */
+    }
+    
+    .show {
+        display: block; /* Menampilkan dropdown */
+    }
+}
