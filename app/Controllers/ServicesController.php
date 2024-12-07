@@ -53,7 +53,7 @@ class ServicesController extends BaseController
             'name' => $this->request->getPost('name'),
             'description' => $this->request->getPost('description'),
             'price' => $this->request->getPost('price'),
-            'duration' => $this->request->getPost('duration'),
+            'duration' => $this->request->getPost('duration'), 
         ]);
 
         return redirect()->to('/services');

@@ -67,6 +67,6 @@ class CustomersController extends Controller
     public function delete($id)
     {
         $this->customerModel->delete($id);
-        return redirect()->to('/admin/customers');
+        return redirect()->to('/customers');
     }
 }

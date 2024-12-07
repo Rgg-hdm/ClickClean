@@ -12,6 +12,8 @@ class DashboardController extends BaseController
 {
     public function index()
     {
+       
+        
         // Inisialisasi model
         $customerModel = new CustomersModel();
         $employeeModel = new EmployeeModel();
@@ -20,7 +22,10 @@ class DashboardController extends BaseController
         
         $serviceModel = new ServiceModel();
 
+
+
         // Menghitung total data dari setiap tabel
+        $data['services'] = $serviceModel->findall();
         $data['totalCustomers'] = $customerModel->countAllResults();
         $data['totalEmployees'] = $employeeModel->countAllResults();
         $data['ordersToday'] = $orderModel->countAllResults();
@@ -28,7 +33,10 @@ class DashboardController extends BaseController
      
         $data['totalServices'] = $serviceModel->countAllResults();
 
+
+        
         // Menampilkan view dengan data yang telah diambil
         return view('admin/Dashboard', $data);
     }
 }
+

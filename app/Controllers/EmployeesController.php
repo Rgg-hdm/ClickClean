@@ -13,7 +13,13 @@ class EmployeesController extends BaseController
     {
         $this->employeeModel = new EmployeeModel();
     }
-
+    // Read all employees
+    public function index()
+    {
+        $data['employees'] = $this->employeeModel->findAll();
+        return view('Employee/index', $data);
+    }
+    
     // Create employee
     public function create()
     {
@@ -33,12 +39,6 @@ class EmployeesController extends BaseController
         return redirect()->to('/employees');
     }
 
-    // Read all employees
-    public function index()
-    {
-        $data['employees'] = $this->employeeModel->findAll();
-        return view('Employee/index', $data);
-    }
 
     // Read single employee
     public function show($id)

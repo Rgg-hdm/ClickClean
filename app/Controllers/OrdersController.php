@@ -10,10 +10,16 @@ use App\Models\EmployeeModel;
 class OrdersController extends BaseController
 {
     protected $orderModel;
+    protected $customerModel;
+    protected $serviceModel;
+    protected $employeeModel;
 
     public function __construct()
     {
         $this->orderModel = new OrdersModel();
+        $this->customerModel = new CustomersModel();
+        $this->serviceModel = new ServiceModel();
+        $this->employeeModel = new EmployeeModel();
     }
 
     // Read: Menampilkan semua orders
@@ -74,7 +80,9 @@ class OrdersController extends BaseController
     public function store()
     {
         $this->orderModel->save([
+
             'customer_id' => $this->request->getPost('customer_id'),
+            'id' => $this->request->getPost('id'),
             'service_id' => $this->request->getPost('service_id'),
             'employee_id' => $this->request->getPost('employee_id'),
             'order_date' => $this->request->getPost('order_date'),
@@ -89,13 +97,23 @@ class OrdersController extends BaseController
     // Edit: Menampilkan form edit order
     public function edit($id)
     {
-        $data['order'] = $this->orderModel->getOrder($id); // Mengambil data order dengan relasi
+        // Ambil data order
+        $data['order'] = $this->orderModel->getOrder($id);
         if (!$data['order']) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Order dengan ID $id tidak ditemukan.");
         }
 
+        // Ambil data pelanggan untuk dropdown
+        $data['customers'] = $this->customerModel->findAll(); 
+
+        // Ambil data layanan dan pegawai
+        $data['services'] = $this->serviceModel->findAll();
+        $data['employees'] = $this->employeeModel->findAll(); // Perbaiki nama properti di sini
+
+        // Kirim data ke view
         return view('orders/edit', $data);
     }
+
 
     // Update: Menyimpan perubahan data order
     public function update($id)
@@ -118,7 +136,7 @@ class OrdersController extends BaseController
     {
         $this->orderModel->delete($id);
 
-        return redirect()->to('/orders')->with('message', 'Order berhasil dihapus.');
+        return redirect()->to('orders')->with('message', 'Order berhasil dihapus.');
     }
 
 

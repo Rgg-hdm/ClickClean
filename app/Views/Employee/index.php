@@ -47,8 +47,7 @@
                                     <td><?= esc($employee['phone']) ?></td>
                                     <td><?= esc($employee['position']) ?></td>
                                     <td><?= esc($employee['hire_date']) ?></td>
-                                    <td>
-                                        <a href="/employees/show/<?= $employee['id'] ?>" class="btn btn-info btn-sm">View</a>
+                                    <td>                                        
                                         <a href="/employees/edit/<?= $employee['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
                                         <a href="/employees/delete/<?= $employee['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
                                     </td>

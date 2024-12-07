@@ -27,6 +27,12 @@
             </div>
             <div class="card-body">
                 <form action="/orders/store" method="post">
+
+                <div class="form-group">
+                        <label for="id">ID Order</label>
+                        <input type="text" id="id" name="id" class="form-control" required>
+                    </div>
+
                     <!-- Customer ID dropdown -->
                     <div class="mb-3">
                         <label for="customer_id" class="form-label">Customer</label>
@@ -51,29 +57,7 @@
                         </select>
                     </div>
 
-                    <!-- Service ID dropdown -->
-                    <!-- <div class="mb-3">
-    <label for="service_id" class="form-label">Service ID</label>
-    <input 
-        type="text" 
-        id="service_id" 
-        name="service_id" 
-        class="form-control" 
-        placeholder="Enter Service ID" 
-        required
-    >
-</div> -->
-<!-- <div class="mb-3">
-    <label for="total_price" class="form-label">Total Price</label>
-    <input 
-        type="text" 
-        id="total_price" 
-        name="total_price" 
-        class="form-control" 
-        placeholder="Enter Total Price" 
-        required
-    >
-</div> -->
+   
 
                     <!-- Employee ID dropdown -->
                     <div class="mb-3">
@@ -112,11 +96,7 @@
                         </select>
                     </div>
 
-                    <!-- Total Price -->
-                    <!-- <div class="mb-3">
-                        <label for="total_price" class="form-label">Total Price</label>
-                        <input type="text" id="total_price" name="total_price" class="form-control" required>
-                    </div> -->
+                    
 
                     <button type="submit" class="btn btn-primary">Create Order</button>
                 </form>
